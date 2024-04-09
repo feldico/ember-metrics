@@ -84,6 +84,10 @@ export default class Metrics extends Service {
 
     for (let { name, config } of adaptersForEnv) {
       let adapterClass = this._lookupAdapter(name);
+      if (!adapterClass) {
+        console.error(adapterClass, 'Not found')
+        return;
+      }
       if (typeof FastBoot === 'undefined' || adapterClass.supportsFastBoot) {
         activeAdapters[name] =
           this._adapters[name] ||
